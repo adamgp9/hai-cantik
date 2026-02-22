@@ -6,13 +6,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
 
 <style>
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-}
-
 body{
+  margin:0;
   height:100vh;
   overflow:hidden;
   font-family:'Quicksand',sans-serif;
@@ -24,13 +19,11 @@ body{
   transition:background-image 2s ease-in-out;
 }
 
-/* Overlay */
 .overlay{
   position:absolute;
   width:100%;
   height:100%;
   background:rgba(0,0,0,0.4);
-  z-index:1;
 }
 
 /* Fade Background */
@@ -51,7 +44,6 @@ body{
   background:white;
   border-radius:50%;
   animation:twinkle 2s infinite ease-in-out;
-  z-index:1;
 }
 @keyframes twinkle{
   0%{opacity:0;}
@@ -59,18 +51,14 @@ body{
   100%{opacity:0;}
 }
 
-/* ================= ENVELOPE ================= */
-
+/* Envelope */
 .envelope{
   width:250px;
   height:160px;
   position:relative;
   cursor:pointer;
   z-index:2;
-  perspective:1000px;
-  overflow:hidden; /* 🔥 FIX UTAMA */
 }
-
 .body-envelope{
   width:100%;
   height:100%;
@@ -78,9 +66,7 @@ body{
   border-radius:10px;
   position:absolute;
   bottom:0;
-  z-index:2; /* 🔥 biar di atas paper */
 }
-
 .flap{
   width:100%;
   height:100%;
@@ -88,14 +74,11 @@ body{
   position:absolute;
   top:0;
   clip-path:polygon(0 0,100% 0,50% 60%);
-  transform-origin:top center;
-  transition:transform 0.8s ease;
-  transform:rotateX(0deg);
-  z-index:3;
+  transform-origin:top;
+  transition:transform 1s ease;
 }
-
 .open .flap{
-  transform:rotateX(-120deg);
+  transform:rotateX(180deg);
 }
 
 .stamp{
@@ -108,32 +91,29 @@ body{
   padding:8px 15px;
   border-radius:20px;
   font-weight:bold;
-  z-index:4;
+  z-index:3;
 }
 
-/* ================= PAPER ================= */
-
+/* Paper */
 .paper{
-  width:220px;
+  width:75%;
+  max-width:700px;
   background:#b266ff;
   color:white;
-  padding:20px;
-  border-radius:10px;
+  padding:30px;
+  border-radius:15px;
+  display:none;
+  z-index:4;
+  text-align:center;
+  box-shadow:0 0 20px rgba(0,0,0,0.3);
+  line-height:1.6;
   position:absolute;
-  bottom:20px;
-  left:50%;
-  transform:translateX(-50%) translateY(100%);
+  transform:translateY(150px);
   opacity:0;
   transition:all 1s ease;
-  z-index:1; /* 🔥 paling bawah */
-  text-align:center;
-  box-shadow:0 10px 25px rgba(0,0,0,0.3);
-  line-height:1.6;
-  display:none;
 }
-
 .paper.show{
-  transform:translateX(-50%) translateY(-180px);
+  transform:translateY(0);
   opacity:1;
 }
 
@@ -166,16 +146,16 @@ button:hover{
   <div class="flap"></div>
   <div class="body-envelope"></div>
   <div class="stamp">OPEN IT 💌</div>
+</div>
 
-  <div class="paper" id="paper">
-    <div id="text"></div>
-    <button onclick="nextText()">Lanjut disini 💜</button>
-  </div>
+<div class="paper" id="paper">
+  <div id="text"></div>
+  <button onclick="nextText()">Lanjut disini 💜</button>
 </div>
 
 <script>
 
-/* MUSIC AUTO PLAY */
+// MUSIC AUTO PLAY
 window.addEventListener("load", function(){
   const music=document.getElementById("bgMusic");
   music.volume=0.4;
@@ -189,7 +169,7 @@ window.addEventListener("load", function(){
   }
 });
 
-/* Background slideshow */
+// Background slideshow fade
 const images=[
 "poto 1.jpeg","poto 2.jpg","poto 3.jpg","poto 4.jpg",
 "poto 5.jpeg","poto 6.jpeg","poto 7.jpeg","poto 8.jpeg"
@@ -208,7 +188,7 @@ function changeBackground(){
 setInterval(changeBackground,6000);
 changeBackground();
 
-/* Sparkles */
+// Sparkles
 for(let i=0;i<35;i++){
   let s=document.createElement("div");
   s.className="sparkle";
@@ -223,11 +203,11 @@ const texts=[
 "Untuk Yaya, sayangku 💜",
 `Happy 6 months ya, Yaya, sayangku.
 Gak kerasa ya kita udah sampai di titik ini. Enam bulan mungkin terdengar sederhana buat orang lain, tapi buat aku, enam bulan sama Yaya itu penuh arti. Penuh tawa, penuh cerita, penuh pelajaran, dan juga penuh proses yang bikin aku belajar jadi pribadi yang lebih baik.`,
-`Untuk semua kesalahan yang pernah aku buat, yang mungkin melukai hati Yaya, aku benar-benar minta maaf ya, sayangku. Aku gak pernah ada niat sedikit pun buat nyakitin Yaya. Kalau aku pernah bikin Yaya nangis, bikin Yaya overthinking, atau bikin Yaya merasa gak dihargai, itu murni karena aku masih belajar. Belajar jadi pasangan yang lebih dewasa. Belajar buat lebih ngerti isi hati Yaya. Belajar buat gak cuma ngomong sayang, tapi juga buktiin lewat sikap.`,
-`Enam bulan ini ngajarin aku banyak hal. Yaya ngajarin aku tentang sabar, tentang komunikasi, tentang arti kompromi, dan tentang pentingnya saling menguatkan. Aku gak mau kesalahan yang kemarin-kemarin terus terulang. Aku mau kita sama-sama memperbaiki diri. Aku mau kita tumbuh bareng, bukan saling menjatuhkan.`,
-`Kalau nanti ke depan ada masalah lagi, aku gak mau kita saling menjauh atau diam-diaman lama. Aku maunya kita saling duduk, saling dengerin, saling ngerti. Karena buat aku, Yaya bukan cuma pacar. Yaya itu rumah buat aku, sayangku. Tempat aku cerita, tempat aku ngerasa tenang.`,
-`Aku gak bisa janji bakal selalu sempurna. Tapi aku janji bakal selalu berusaha. Berusaha jadi lebih sabar, lebih perhatian, lebih lembut, dan lebih peka sama perasaan Yaya. Aku pengen hubungan kita gak cuma berhenti di enam bulan ini. Aku pengen terus nambah bulan, nambah tahun, nambah kenangan indah bareng Yaya, sayangku.`,
-`Makasih ya, Yaya, udah jadi bagian terindah di setengah tahun terakhir hidup aku. Makasih udah nerima aku apa adanya, bahkan dengan segala kurangku. Semoga ke depan kita lebih kuat, lebih dewasa, dan lebih saling memahami.`
+`Untuk semua kesalahan yang pernah aku buat...`,
+`Enam bulan ini ngajarin aku banyak hal...`,
+`Kalau nanti ke depan ada masalah lagi...`,
+`Aku gak bisa janji bakal selalu sempurna...`,
+`Makasih ya, Yaya, udah jadi bagian terindah...`
 ];
 
 let currentIndex=0;
@@ -248,20 +228,19 @@ function typeWriter(text){
 }
 
 function openLetter(){
-  const envelope=document.getElementById("envelope");
-  const paper=document.getElementById("paper");
-
-  envelope.classList.add("open");
+  document.getElementById("envelope").classList.add("open");
 
   setTimeout(()=>{
-    paper.style.display="block";
+    document.getElementById("paper").style.display="block";
 
     setTimeout(()=>{
-      paper.classList.add("show");
+      document.getElementById("paper").classList.add("show");
       typeWriter(texts[currentIndex]);
     },100);
 
-  },800);
+    document.getElementById("envelope").style.display="none";
+
+  },1000);
 }
 
 function nextText(){
