@@ -16,25 +16,26 @@ body{
   align-items:center;
   background-size:cover;
   background-position:center;
-  transition:background-image 2s ease-in-out;
+}
+  
+.bgVideo{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  z-index:-2;
 }
 
 .overlay{
-  position:absolute;
+  position:fixed;
   width:100%;
   height:100%;
   background:rgba(0,0,0,0.4);
+  z-index:-1;
 }
 
-/* Fade Background */
-.fade-bg{
-  animation: fadeBackground 2s ease-in-out;
-}
-@keyframes fadeBackground{
-  0%{opacity:0;}
-  50%{opacity:1;}
-  100%{opacity:1;}
-}
 
 /* Sparkle */
 .sparkle{
@@ -137,7 +138,9 @@ button:hover{
 </head>
 
 <body>
-
+<video autoplay muted loop id="bgVideo">
+  <source src="video-bg.mp4" type="video/mp4">
+</video>
 <div class="overlay"></div>
 
 <!-- Background Music -->
