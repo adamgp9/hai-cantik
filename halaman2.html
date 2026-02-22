@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Untuk Yaya 💜</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+body{
+  margin:0;
+  height:100vh;
+  overflow:hidden;
+  font-family:'Quicksand',sans-serif;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background-size:cover;
+  background-position:center;
+  transition:background-image 1.5s ease-in-out;
+}
+
+.overlay{
+  position:absolute;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.4);
+}
+
+/* Sparkle */
+.sparkle{
+  position:absolute;
+  width:4px;
+  height:4px;
+  background:white;
+  border-radius:50%;
+  animation:twinkle 2s infinite ease-in-out;
+}
+@keyframes twinkle{
+  0%{opacity:0;}
+  50%{opacity:1;}
+  100%{opacity:0;}
+}
+
+/* Envelope */
+.envelope{
+  width:250px;
+  height:160px;
+  position:relative;
+  cursor:pointer;
+  z-index:2;
+}
+.body-envelope{
+  width:100%;
+  height:100%;
+  background:#ff99cc;
+  border-radius:10px;
+  position:absolute;
+  bottom:0;
+}
+.flap{
+  width:100%;
+  height:100%;
+  background:#ff66b2;
+  position:absolute;
+  top:0;
+  clip-path:polygon(0 0,100% 0,50% 60%);
+  transform-origin:top;
+  transition:transform 1s ease;
+}
+.open .flap{
+  transform:rotateX(180deg);
+}
+
+.stamp{
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  background:#ff3399;
+  color:white;
+  padding:8px 15px;
+  border-radius:20px;
+  font-weight:bold;
+  z-index:3;
+}
+
+/* Paper */
+.paper{
+  width:75%;
+  max-width:700px;
+  background:#b266ff;
+  color:white;
+  padding:30px;
+  border-radius:15px;
+  display:none;
+  z-index:4;
+  text-align:center;
+  box-shadow:0 0 20px rgba(0,0,0,0.3);
+  line-height:1.6;
+}
+
+button{
+  margin-top:20px;
+  padding:10px 20px;
+  border:none;
+  border-radius:20px;
+  background:white;
+  color:#b266ff;
+  font-weight:bold;
+  cursor:pointer;
+}
+button:hover{
+  background:#f2e6ff;
+}
+</style>
+</head>
+
+<body>
+
+<div class="overlay"></div>
+
+<!-- Background Music -->
+<audio id="bgMusic" autoplay loop>
+  <source src="everything.mp3" type="audio/mpeg">
+</audio>
+
+<div class="envelope" id="envelope" onclick="openLetter()">
+  <div class="flap"></div>
+  <div class="body-envelope"></div>
+  <div class="stamp">OPEN IT 💌</div>
+</div>
+
+<div class="paper" id="paper">
+  <div id="text"></div>
+  <button onclick="nextText()">Lanjut disini 💜</button>
+</div>
+
+<script>
+// MUSIC AUTO PLAY
+window.addEventListener("load", function(){
+  const music=document.getElementById("bgMusic");
+  music.volume=0.4;
+  const playPromise=music.play();
+  if(playPromise!==undefined){
+    playPromise.catch(()=>{
+      document.addEventListener("click",function(){
+        music.play();
+      },{once:true});
+    });
+  }
+});
+
+// Background slideshow
+const images=[
+"foto1.jpg","foto2.jpg","foto3.jpg","foto4.jpg",
+"foto5.jpg","foto6.jpg","foto7.jpg","foto8.jpg"
+];
+let bgIndex=0;
+function changeBackground(){
+  document.body.style.backgroundImage=`url('${images[bgIndex]}')`;
+  bgIndex=(bgIndex+1)%images.length;
+}
+setInterval(changeBackground,6000);
+changeBackground();
+
+// Sparkles
+for(let i=0;i<35;i++){
+  let s=document.createElement("div");
+  s.className="sparkle";
+  s.style.top=Math.random()*100+"%";
+  s.style.left=Math.random()*100+"%";
+  s.style.animationDelay=Math.random()*2+"s";
+  document.body.appendChild(s);
+}
+
+// TEXTS
+const texts=[
+"Untuk Yaya, sayangku 💜",
+`Happy 6 months ya, Yaya, sayangku.
+Gak kerasa ya kita udah sampai di titik ini. Enam bulan mungkin terdengar sederhana buat orang lain, tapi buat aku, enam bulan sama Yaya itu penuh arti. Penuh tawa, penuh cerita, penuh pelajaran, dan juga penuh proses yang bikin aku belajar jadi pribadi yang lebih baik.`,
+`Untuk semua kesalahan yang pernah aku buat, yang mungkin melukai hati Yaya, aku benar-benar minta maaf ya, sayangku. Aku gak pernah ada niat sedikit pun buat nyakitin Yaya. Kalau aku pernah bikin Yaya nangis, bikin Yaya overthinking, atau bikin Yaya merasa gak dihargai, itu murni karena aku masih belajar. Belajar jadi pasangan yang lebih dewasa. Belajar buat lebih ngerti isi hati Yaya. Belajar buat gak cuma ngomong sayang, tapi juga buktiin lewat sikap.`,
+`Enam bulan ini ngajarin aku banyak hal. Yaya ngajarin aku tentang sabar, tentang komunikasi, tentang arti kompromi, dan tentang pentingnya saling menguatkan. Aku gak mau kesalahan yang kemarin-kemarin terus terulang. Aku mau kita sama-sama memperbaiki diri. Aku mau kita tumbuh bareng, bukan saling menjatuhkan.`,
+`Kalau nanti ke depan ada masalah lagi, aku gak mau kita saling menjauh atau diam-diaman lama. Aku maunya kita saling duduk, saling dengerin, saling ngerti. Karena buat aku, Yaya bukan cuma pacar. Yaya itu rumah buat aku, sayangku. Tempat aku cerita, tempat aku ngerasa tenang.`,
+`Aku gak bisa janji bakal selalu sempurna. Tapi aku janji bakal selalu berusaha. Berusaha jadi lebih sabar, lebih perhatian, lebih lembut, dan lebih peka sama perasaan Yaya. Aku pengen hubungan kita gak cuma berhenti di enam bulan ini. Aku pengen terus nambah bulan, nambah tahun, nambah kenangan indah bareng Yaya, sayangku.`,
+`Makasih ya, Yaya, udah jadi bagian terindah di setengah tahun terakhir hidup aku. Makasih udah nerima aku apa adanya, bahkan dengan segala kurangku. Semoga ke depan kita lebih kuat, lebih dewasa, dan lebih saling memahami.`
+];
+
+let currentIndex=0;
+let typingInterval;
+
+function typeWriter(text){
+  let i=0;
+  document.getElementById("text").innerHTML="";
+  clearInterval(typingInterval);
+  typingInterval=setInterval(()=>{
+    if(i<text.length){
+      document.getElementById("text").innerHTML+=text.charAt(i);
+      i++;
+    }else{
+      clearInterval(typingInterval);
+    }
+  },25);
+}
+
+function openLetter(){
+  document.getElementById("envelope").classList.add("open");
+  setTimeout(()=>{
+    document.getElementById("envelope").style.display="none";
+    document.getElementById("paper").style.display="block";
+    typeWriter(texts[currentIndex]);
+  },1000);
+}
+
+function nextText(){
+  currentIndex++;
+  if(currentIndex<texts.length){
+    typeWriter(texts[currentIndex]);
+  }else{
+    window.location.href="halaman3.html";
+  }
+}
+</script>
+
+</body>
+</html>
