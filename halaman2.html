@@ -16,14 +16,7 @@ body{
   align-items:center;
   background-size:cover;
   background-position:center;
-  .fade-bg{
-  animation: fadeBackground 2s ease-in-out;
-}
-
-@keyframes fadeBackground{
-  0%{opacity:0.7;}
-  50%{opacity:1;}
-  100%{opacity:1;}
+  transition:background-image 1.5s ease-in-out;
 }
 
 .overlay{
@@ -71,14 +64,11 @@ body{
   position:absolute;
   top:0;
   clip-path:polygon(0 0,100% 0,50% 60%);
-  transform-origin:top center;
-  transition:transform 0.8s ease;
-  transform:rotateX(0deg);
-  z-index:3;
+  transform-origin:top;
+  transition:transform 1s ease;
 }
-
 .open .flap{
-  transform:rotateX(-120deg);
+  transform:rotateX(180deg);
 }
 
 .stamp{
