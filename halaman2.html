@@ -169,7 +169,6 @@ let bgIndex=0;
 function changeBackground(){
   document.body.classList.add("fade-bg");
   document.body.style.backgroundImage=`url('${images[bgIndex]}')`;
-
   bgIndex=(bgIndex+1)%images.length;
 
   setTimeout(()=>{
