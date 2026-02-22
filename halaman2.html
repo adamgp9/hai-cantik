@@ -58,6 +58,7 @@ body{
   position:relative;
   cursor:pointer;
   z-index:2;
+  perspective:1000px;
 }
 .body-envelope{
   width:100%;
@@ -99,24 +100,26 @@ body{
 
 /* Paper */
 .paper{
-  width:75%;
-  max-width:700px;
+  width:220px;
   background:#b266ff;
   color:white;
-  padding:30px;
-  border-radius:15px;
-  display:none;
-  z-index:4;
-  text-align:center;
-  box-shadow:0 0 20px rgba(0,0,0,0.3);
-  line-height:1.6;
+  padding:20px;
+  border-radius:10px;
   position:absolute;
-  transform:translateY(150px);
+  bottom:20px;
+  left:50%;
+  transform:translateX(-50%) translateY(100%);
   opacity:0;
   transition:all 1s ease;
+  z-index:1;
+  text-align:center;
+  box-shadow:0 10px 25px rgba(0,0,0,0.3);
+  line-height:1.6;
+  display:none;
 }
+
 .paper.show{
-  transform:translateY(0);
+  transform:translateX(-50%) translateY(-180px);
   opacity:1;
 }
 
@@ -149,11 +152,11 @@ button:hover{
   <div class="flap"></div>
   <div class="body-envelope"></div>
   <div class="stamp">OPEN IT 💌</div>
-</div>
 
-<div class="paper" id="paper">
-  <div id="text"></div>
-  <button onclick="nextText()">Lanjut disini 💜</button>
+  <div class="paper" id="paper">
+    <div id="text"></div>
+    <button onclick="nextText()">Lanjut disini 💜</button>
+  </div>
 </div>
 
 <script>
@@ -231,19 +234,20 @@ function typeWriter(text){
 }
 
 function openLetter(){
-  document.getElementById("envelope").classList.add("open");
+  const envelope = document.getElementById("envelope");
+  const paper = document.getElementById("paper");
+
+  envelope.classList.add("open");
 
   setTimeout(()=>{
-    document.getElementById("paper").style.display="block";
+    paper.style.display="block";
 
     setTimeout(()=>{
-      document.getElementById("paper").classList.add("show");
+      paper.classList.add("show");
       typeWriter(texts[currentIndex]);
     },100);
 
-    document.getElementById("envelope").style.display="none";
-
-  },1000);
+  },800);
 }
 
 function nextText(){
