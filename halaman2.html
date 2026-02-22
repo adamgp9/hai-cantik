@@ -16,7 +16,7 @@ body{
   align-items:center;
   background-size:cover;
   background-position:center;
-  transition:background-image 1.5s ease-in-out;
+  transition:background-image 2s ease-in-out;
 }
 
 .overlay{
@@ -31,7 +31,7 @@ body{
   animation: fadeBackground 2s ease-in-out;
 }
 @keyframes fadeBackground{
-  0%{opacity:0.7;}
+  0%{opacity:0;}
   50%{opacity:1;}
   100%{opacity:1;}
 }
@@ -180,12 +180,12 @@ const images=[
 let bgIndex=0;
 
 function changeBackground(){
-  document.body.classList.add("fade-bg");
+  document.body.classList.add("fade-in");
   document.body.style.backgroundImage=`url('${images[bgIndex]}')`;
   bgIndex=(bgIndex+1)%images.length;
 
   setTimeout(()=>{
-    document.body.classList.remove("fade-bg");
+    document.body.classList.remove("fade-out");
   },2000);
 }
 setInterval(changeBackground,6000);
