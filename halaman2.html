@@ -26,6 +26,7 @@ body{
   background:rgba(0,0,0,0.4);
 }
 
+/* Fade Background */
 .fade-bg{
   animation: fadeBackground 2s ease-in-out;
 }
@@ -57,6 +58,7 @@ body{
   position:relative;
   cursor:pointer;
   z-index:2;
+  perspective:1000px;
 }
 .body-envelope{
   width:100%;
@@ -73,11 +75,14 @@ body{
   position:absolute;
   top:0;
   clip-path:polygon(0 0,100% 0,50% 60%);
-  transform-origin:top;
-  transition:transform 1s ease;
+  transform-origin:top center;
+  transition:transform 0.8s ease;
+  transform:rotateX(0deg);
+  z-index:3;
 }
+
 .open .flap{
-  transform:rotateX(180deg);
+  transform:rotateX(-120deg);
 }
 
 .stamp{
@@ -106,6 +111,14 @@ body{
   text-align:center;
   box-shadow:0 0 20px rgba(0,0,0,0.3);
   line-height:1.6;
+  position:absolute;
+  transform:translateY(150px);
+  opacity:0;
+  transition:all 1s ease;
+}
+.paper.show{
+  transform:translateY(0);
+  opacity:1;
 }
 
 button{
@@ -145,6 +158,7 @@ button:hover{
 </div>
 
 <script>
+
 // MUSIC AUTO PLAY
 window.addEventListener("load", function(){
   const music=document.getElementById("bgMusic");
@@ -159,12 +173,13 @@ window.addEventListener("load", function(){
   }
 });
 
-// Background slideshow
+// Background slideshow fade
 const images=[
 "poto 1.jpeg","poto 2.jpg","poto 3.jpg","poto 4.jpg",
 "poto 5.jpeg","poto 6.jpeg","poto 7.jpeg","poto 8.jpeg"
 ];
 let bgIndex=0;
+
 function changeBackground(){
   document.body.classList.add("fade-bg");
   document.body.style.backgroundImage=`url('${images[bgIndex]}')`;
@@ -218,10 +233,17 @@ function typeWriter(text){
 
 function openLetter(){
   document.getElementById("envelope").classList.add("open");
+
   setTimeout(()=>{
-    document.getElementById("envelope").style.display="none";
     document.getElementById("paper").style.display="block";
-    typeWriter(texts[currentIndex]);
+
+    setTimeout(()=>{
+      document.getElementById("paper").classList.add("show");
+      typeWriter(texts[currentIndex]);
+    },100);
+
+    document.getElementById("envelope").style.display="none";
+
   },1000);
 }
 
@@ -233,6 +255,7 @@ function nextText(){
     window.location.href="halaman3.html";
   }
 }
+
 </script>
 
 </body>
