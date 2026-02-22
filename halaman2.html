@@ -175,25 +175,6 @@ window.addEventListener("load", function(){
   }
 });
 
-// Background slideshow fade
-const images=[
-"poto 1.jpeg","poto 2.jpg","poto 3.jpg","poto 4.jpg",
-"poto 5.jpeg","poto 6.jpeg","poto 7.jpeg","poto 8.jpeg"
-];
-let bgIndex=0;
-
-function changeBackground(){
-  document.body.classList.add("fade-in");
-  document.body.style.backgroundImage=`url('${images[bgIndex]}')`;
-  bgIndex=(bgIndex+1)%images.length;
-
-  setTimeout(()=>{
-    document.body.classList.remove("fade-out");
-  },2000);
-}
-setInterval(changeBackground,6000);
-changeBackground();
-
 // Sparkles
 for(let i=0;i<35;i++){
   let s=document.createElement("div");
