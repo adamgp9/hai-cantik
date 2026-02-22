@@ -167,11 +167,15 @@ const images=[
 ];
 let bgIndex=0;
 function changeBackground(){
+  document.body.classList.add("fade-bg");
   document.body.style.backgroundImage=`url('${images[bgIndex]}')`;
+
   bgIndex=(bgIndex+1)%images.length;
+
+  setTimeout(()=>{
+    document.body.classList.remove("fade-bg");
+  },2000);
 }
-setInterval(changeBackground,6000);
-changeBackground();
 
 // Sparkles
 for(let i=0;i<35;i++){
