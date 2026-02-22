@@ -16,26 +16,24 @@ body{
   align-items:center;
   background-size:cover;
   background-position:center;
+  transition: background-image 2s ease-in-out;
+
+.fade-bg{
+  animation: fadeBackground 2s ease-in-out;
 }
-  
-.bgVideo{
-  position:fixed;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  z-index:-2;
+
+@keyframes fadeBackground{
+  0%{opacity:0.7;}
+  50%{opacity:1;}
+  100%{opacity:1;}
 }
 
 .overlay{
-  position:fixed;
+  position:absolute;
   width:100%;
   height:100%;
   background:rgba(0,0,0,0.4);
-  z-index:-1;
 }
-
 
 /* Sparkle */
 .sparkle{
@@ -59,7 +57,6 @@ body{
   position:relative;
   cursor:pointer;
   z-index:2;
-  perspective:1000px;
 }
 .body-envelope{
   width:100%;
@@ -81,6 +78,7 @@ body{
   transform:rotateX(0deg);
   z-index:3;
 }
+
 .open .flap{
   transform:rotateX(-120deg);
 }
@@ -111,14 +109,6 @@ body{
   text-align:center;
   box-shadow:0 0 20px rgba(0,0,0,0.3);
   line-height:1.6;
-  position:absolute;
-  transform:translateY(150px);
-  opacity:0;
-  transition:all 1s ease;
-}
-.paper.show{
-  transform:translateY(0);
-  opacity:1;
 }
 
 button{
@@ -138,9 +128,7 @@ button:hover{
 </head>
 
 <body>
-<video autoplay muted loop id="bgVideo">
-  <source src="WhatsApp Video 2026-02-23 at 05.55.09.mp4" type="video/mp4">
-</video>
+
 <div class="overlay"></div>
 
 <!-- Background Music -->
@@ -160,7 +148,6 @@ button:hover{
 </div>
 
 <script>
-
 // MUSIC AUTO PLAY
 window.addEventListener("load", function(){
   const music=document.getElementById("bgMusic");
@@ -174,6 +161,24 @@ window.addEventListener("load", function(){
     });
   }
 });
+
+// Background slideshow
+const images=[
+"poto 1.jpeg","poto 2.jpg","poto 3.jpg","poto 4.jpg",
+"poto 5.jpeg","poto 6.jpeg","poto 7.jpeg","poto 8.jpeg"
+];
+let bgIndex=0;
+let bgIndex=0;
+function changeBackground(){
+  document.body.classList.add("fade-bg");
+  document.body.style.backgroundImage=`url('${images[bgIndex]}')`;
+
+  bgIndex=(bgIndex+1)%images.length;
+
+  setTimeout(()=>{
+    document.body.classList.remove("fade-bg");
+  },2000);
+}
 
 // Sparkles
 for(let i=0;i<35;i++){
@@ -216,17 +221,10 @@ function typeWriter(text){
 
 function openLetter(){
   document.getElementById("envelope").classList.add("open");
-
   setTimeout(()=>{
-    document.getElementById("paper").style.display="block";
-
-    setTimeout(()=>{
-      document.getElementById("paper").classList.add("show");
-      typeWriter(texts[currentIndex]);
-    },100);
-
     document.getElementById("envelope").style.display="none";
-
+    document.getElementById("paper").style.display="block";
+    typeWriter(texts[currentIndex]);
   },1000);
 }
 
@@ -238,7 +236,6 @@ function nextText(){
     window.location.href="halaman3.html";
   }
 }
-
 </script>
 
 </body>
