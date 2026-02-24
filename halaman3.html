@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>For Yaya 💜</title>
 
-<!-- Font Lucu -->
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700&display=swap" rel="stylesheet">
 
 <style>
@@ -24,9 +23,9 @@ body{
   color:white;
 }
 
-/* Typewriter */
+/* TYPEWRITER */
 .typewriter{
-  font-size:30px;
+  font-size:32px;
   max-width:80%;
   border-right:3px solid white;
   white-space:nowrap;
@@ -39,27 +38,27 @@ body{
   50%{border-color:transparent;}
 }
 
-/* Kucing */
-.cat{
+/* VIDEO KUCING */
+.cat-video{
   position:absolute;
   bottom:40px;
-  left:-200px;
-  font-size:90px;
+  left:-300px;
+  width:200px;
   cursor:pointer;
-  transition:all 2s ease;
+  transition:left 3s ease;
 }
 
-.cat.walk{
+.cat-video.walk{
   left:50%;
   transform:translateX(-50%);
 }
 
-.cat.run{
+.cat-video.run{
   left:110%;
-  transition:all 1s ease-in;
+  transition:left 1s ease-in;
 }
 
-/* Sparkle */
+/* SPARKLE */
 .sparkle{
   position:absolute;
   width:6px;
@@ -77,7 +76,7 @@ body{
   }
 }
 
-/* Video Popup */
+/* VIDEO POPUP */
 .video-popup{
   position:fixed;
   top:0;
@@ -102,14 +101,16 @@ body{
 
 <div id="text" class="typewriter"></div>
 
-<div id="cat" class="cat">🐱</div>
+<video id="catVideo" class="cat-video" autoplay muted loop playsinline>
+  <source src="kucing-jalan.mp4" type="video/MOV">
+</video>
 
 <audio id="bgMusic" autoplay loop>
   <source src="Keshi - Texas.mp3" type="audio/mp3">
 </audio>
 
 <div id="videoPopup" class="video-popup">
-  <video id="video" controls>
+  <video id="mainVideo" controls>
     <source src="video.mp4" type="video/mp4">
   </video>
 </div>
@@ -129,26 +130,26 @@ function typeWriter(){
     index++;
     setTimeout(typeWriter, 60);
   }else{
-    document.getElementById("cat").classList.add("walk");
+    document.getElementById("catVideo").classList.add("walk");
   }
 }
 
 typeWriter();
 
 /* Klik kucing */
-const cat = document.getElementById("cat");
+const catVideo = document.getElementById("catVideo");
 const videoPopup = document.getElementById("videoPopup");
-const video = document.getElementById("video");
+const mainVideo = document.getElementById("mainVideo");
 
-cat.addEventListener("click",()=>{
-  cat.classList.add("run");
+catVideo.addEventListener("click",()=>{
+  catVideo.classList.add("run");
   setTimeout(()=>{
     videoPopup.style.display="flex";
-    video.play();
+    mainVideo.play();
   },1000);
 });
 
-/* Sparkle effect */
+/* Sparkle */
 function createSparkle(){
   const sparkle = document.createElement("div");
   sparkle.classList.add("sparkle");
