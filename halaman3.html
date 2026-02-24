@@ -1,186 +1,165 @@
 <!DOCTYPE html>
-<html>
+<html lang="id">
 <head>
-  <title>Untuk Yaya 💜</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Yaya 💜</title>
 
-  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+<!-- Font Lucu -->
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700&display=swap" rel="stylesheet">
 
-  <style>
-    body{
-      margin:0;
-      height:100vh;
-      background:#e9d5ff;
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      flex-direction:column;
-      overflow:hidden;
-      font-family:'Quicksand', sans-serif;
-    }
+<style>
+body{
+  margin:0;
+  padding:0;
+  height:100vh;
+  background:#d8b4f8;
+  overflow:hidden;
+  font-family:'Baloo 2', cursive;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+  text-align:center;
+  color:white;
+}
 
-    .text-box{
-      text-align:center;
-      font-family:'Baloo 2', cursive;
-      font-size:30px;
-      color:#6b21a8;
-      width:80%;
-      max-width:650px;
-      min-height:140px;
-      line-height:1.6;
-    }
+/* Typewriter */
+.typewriter{
+  font-size:30px;
+  max-width:80%;
+  border-right:3px solid white;
+  white-space:nowrap;
+  overflow:hidden;
+  animation:blink 0.8s infinite;
+  z-index:2;
+}
 
-    /* Cursor */
-    .cursor{
-      display:inline-block;
-      width:3px;
-      background:#6b21a8;
-      animation:blink 1s infinite;
-      margin-left:5px;
-    }
+@keyframes blink{
+  50%{border-color:transparent;}
+}
 
-    @keyframes blink{
-      50%{opacity:0;}
-    }
+/* Kucing */
+.cat{
+  position:absolute;
+  bottom:40px;
+  left:-200px;
+  font-size:90px;
+  cursor:pointer;
+  transition:all 2s ease;
+}
 
-    /* MOBIL */
-    .car{
-      position:absolute;
-      bottom:80px;
-      left:-300px;
-      width:240px;
-      cursor:pointer;
-    }
+.cat.walk{
+  left:50%;
+  transform:translateX(-50%);
+}
 
-    .drive-in{
-      animation:driveIn 3s forwards ease;
-    }
+.cat.run{
+  left:110%;
+  transition:all 1s ease-in;
+}
 
-    @keyframes driveIn{
-      from{left:-300px;}
-      to{left:calc(50% - 120px);}
-    }
+/* Sparkle */
+.sparkle{
+  position:absolute;
+  width:6px;
+  height:6px;
+  background:white;
+  border-radius:50%;
+  opacity:0.8;
+  animation:fall linear infinite;
+}
 
-    .drive-out{
-      animation:driveOut 1.5s forwards ease-in;
-    }
+@keyframes fall{
+  to{
+    transform:translateY(100vh);
+    opacity:0;
+  }
+}
 
-    @keyframes driveOut{
-      from{left:calc(50% - 120px);}
-      to{left:120%;}
-    }
+/* Video Popup */
+.video-popup{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:black;
+  display:none;
+  justify-content:center;
+  align-items:center;
+  z-index:999;
+}
 
-    /* VIDEO POPUP */
-    .video-popup{
-      position:fixed;
-      top:0;
-      left:0;
-      width:100%;
-      height:100%;
-      background:rgba(0,0,0,0.95);
-      display:none;
-      justify-content:center;
-      align-items:center;
-      z-index:10;
-    }
-
-    .video-popup video{
-      width:90%;
-      max-height:90%;
-      border-radius:15px;
-    }
-
-  </style>
+.video-popup video{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+</style>
 </head>
-
 <body>
 
-  <div class="text-box" id="text"></div>
+<div id="text" class="typewriter"></div>
 
-  <!-- MOBIL MERAH -->
-  <img src="https://i.imgur.com/6X12K0P.png" class="car" id="car">
+<div id="cat" class="cat">🐱</div>
 
-  <!-- AUDIO -->
-  <audio id="bgMusic" loop>
-    <source src="Keshi - Texas.mp3" type="audio/mp3">
-  </audio>
+<audio id="bgMusic" autoplay loop>
+  <source src="Keshi - Texas.mp3" type="audio/mp3">
+</audio>
 
-  <!-- VIDEO -->
-  <div class="video-popup" id="videoPopup">
-    <video controls id="myVideo">
-      <source src="video.mp4" type="video/mp4">
-    </video>
-  </div>
+<div id="videoPopup" class="video-popup">
+  <video id="video" controls>
+    <source src="video.mp4" type="video/mp4">
+  </video>
+</div>
 
 <script>
+const textElement = document.getElementById("text");
+const text = "Happy 6 months, Yaya sayangku.\nAku sayang Yaya, hari ini, besok, dan semoga seterusnya 💜🤍";
+let index = 0;
 
-  const message = `Happy 6 months, Yaya sayangku.
-Aku sayang Yaya, hari ini, besok, dan semoga seterusnya 💜🤍`;
-
-  let i = 0;
-  const speed = 45;
-
-  const textElement = document.getElementById("text");
-  const car = document.getElementById("car");
-  const popup = document.getElementById("videoPopup");
-  const video = document.getElementById("myVideo");
-  const music = document.getElementById("bgMusic");
-
-  music.volume = 0.3;
-
-  function typeWriter(){
-    if(i < message.length){
-      textElement.innerHTML += message.charAt(i);
-      i++;
-      setTimeout(typeWriter, speed);
-    } else {
-      car.classList.add("drive-in");
-      music.play().catch(()=>{});
+function typeWriter(){
+  if(index < text.length){
+    if(text.charAt(index) === "\n"){
+      textElement.innerHTML += "<br>";
+    }else{
+      textElement.innerHTML += text.charAt(index);
     }
+    index++;
+    setTimeout(typeWriter, 60);
+  }else{
+    document.getElementById("cat").classList.add("walk");
   }
+}
 
-  window.onload = typeWriter;
+typeWriter();
 
-  function fadeOutMusic(){
-    let fade = setInterval(()=>{
-      if(music.volume > 0.05){
-        music.volume -= 0.05;
-      } else {
-        clearInterval(fade);
-        music.pause();
-      }
-    },100);
-  }
+/* Klik kucing */
+const cat = document.getElementById("cat");
+const videoPopup = document.getElementById("videoPopup");
+const video = document.getElementById("video");
 
-  function fadeInMusic(){
-    music.volume = 0;
-    music.play();
-    let fade = setInterval(()=>{
-      if(music.volume < 0.3){
-        music.volume += 0.05;
-      } else {
-        clearInterval(fade);
-      }
-    },100);
-  }
+cat.addEventListener("click",()=>{
+  cat.classList.add("run");
+  setTimeout(()=>{
+    videoPopup.style.display="flex";
+    video.play();
+  },1000);
+});
 
-  car.addEventListener("click", function(){
-    car.classList.remove("drive-in");
-    car.classList.add("drive-out");
+/* Sparkle effect */
+function createSparkle(){
+  const sparkle = document.createElement("div");
+  sparkle.classList.add("sparkle");
+  sparkle.style.left = Math.random()*100+"vw";
+  sparkle.style.animationDuration = (Math.random()*3+2)+"s";
+  document.body.appendChild(sparkle);
 
-    fadeOutMusic();
+  setTimeout(()=>{sparkle.remove();},5000);
+}
 
-    setTimeout(()=>{
-      popup.style.display="flex";
-      video.play();
-    },1200);
-  });
-
-  popup.addEventListener("click", function(){
-    video.pause();
-    popup.style.display="none";
-    fadeInMusic();
-  });
-
+setInterval(createSparkle,200);
 </script>
 
 </body>
